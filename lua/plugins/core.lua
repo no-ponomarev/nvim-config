@@ -43,6 +43,8 @@ return {
         ---@type neotree.Config?
         opts = {
             -- fill any relevant options here
+            enable_git_status = false,
+            enable_diagnostics = false
         },
     },
 
