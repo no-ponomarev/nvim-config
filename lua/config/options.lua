@@ -47,10 +47,7 @@ opt.list = true
 opt.listchars = { tab = "→ ", trail = "·", nbsp = "␣", extends = "›", precedes = "‹" }
 
 -- System clipboard
-if vim.fn.executable("win32yank.exe") == 1 then
-    -- WSL: y/p go straight to the Windows clipboard
-    opt.clipboard = "unnamedplus"
-elseif vim.env.SSH_TTY then
+if vim.env.SSH_TTY then
     -- Remote over SSH: "+y copies to the local clipboard via OSC 52 (through local
     -- tmux, which needs `set-clipboard on`). Terminals refuse OSC 52 reads, so "+p
     -- just returns nvim's last yank; paste from the local clipboard with Ctrl+Shift+V.

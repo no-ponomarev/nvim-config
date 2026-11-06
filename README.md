@@ -29,9 +29,6 @@ wget https://github.com/sharkdp/bat/releases/download/v0.26.1/bat-v0.26.1-x86_64
 wget https://github.com/tree-sitter/tree-sitter/releases/download/v0.27.1/tree-sitter-linux-x64.gz
 gunzip tree-sitter-linux-x64.gz && mv tree-sitter-linux-x64 tree-sitter && chmod +x tree-sitter
 
-# win32yank (WSL only: system clipboard; clipboard=unnamedplus is enabled when it is on PATH)
-wget https://github.com/equalsraf/win32yank/releases/download/v0.1.1/win32yank-x64.zip
-
 ```
 
 Add export paths to .bashrc
@@ -42,7 +39,6 @@ export PATH="$PATH:/home/nponomar/bin/ripgrep/"
 export PATH="$PATH:/home/nponomar/bin/fd/"
 export PATH="$PATH:/home/nponomar/bin/bat/"
 export PATH="$PATH:/home/nponomar/bin/tree-sitter/"
-export PATH="$PATH:/home/nponomar/bin/win32yank/"  # WSL only
 ```
 
 
@@ -63,6 +59,5 @@ Undo history lives in `~/.local/state/nvim/undo`.
 
 # Clipboard
 
-- WSL: `win32yank.exe` on PATH -> `clipboard=unnamedplus` (y/p use the Windows clipboard).
 - Over SSH: `"+y` copies to the local clipboard via OSC 52. Local tmux needs
   `set -g set-clipboard on`. Paste from the local clipboard with Ctrl+Shift+V.
