@@ -25,6 +25,13 @@ wget https://github.com/sharkdp/fd/releases/download/v10.5.1/fd-v10.5.1-x86_64-u
 # https://github.com/sharkdp/bat/releases
 wget https://github.com/sharkdp/bat/releases/download/v0.26.1/bat-v0.26.1-x86_64-unknown-linux-musl.tar.gz
 
+# tree-sitter CLI (required by nvim-treesitter `main` to build parsers; also needs gcc)
+wget https://github.com/tree-sitter/tree-sitter/releases/download/v0.27.1/tree-sitter-linux-x64.gz
+gunzip tree-sitter-linux-x64.gz && mv tree-sitter-linux-x64 tree-sitter && chmod +x tree-sitter
+
+# win32yank (WSL only: system clipboard; clipboard=unnamedplus is enabled when it is on PATH)
+wget https://github.com/equalsraf/win32yank/releases/download/v0.1.1/win32yank-x64.zip
+
 ```
 
 Add export paths to .bashrc
@@ -34,6 +41,22 @@ export PATH="$PATH:/home/nponomar/bin/nvim/"
 export PATH="$PATH:/home/nponomar/bin/ripgrep/"
 export PATH="$PATH:/home/nponomar/bin/fd/"
 export PATH="$PATH:/home/nponomar/bin/bat/"
+export PATH="$PATH:/home/nponomar/bin/tree-sitter/"
+export PATH="$PATH:/home/nponomar/bin/win32yank/"  # WSL only
 ```
 
 
+
+# Layout
+
+```
+init.lua                 -- loads the modules below in order
+lua/config/options.lua   -- leader, editor options
+lua/config/keymaps.lua   -- general keymaps (plugin keymaps live in their specs)
+lua/config/autocmds.lua  -- autocommands
+lua/config/lazy.lua      -- lazy.nvim bootstrap + setup
+lua/plugins/core.lua     -- neo-tree, fzf-lua, treesitter, mini.bufremove, which-key
+lua/plugins/ui.lua       -- catppuccin, lualine (statusline + buffer tabline)
+```
+
+Undo history lives in `~/.local/state/nvim/undo`.
