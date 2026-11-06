@@ -60,3 +60,9 @@ lua/plugins/ui.lua       -- catppuccin, lualine (statusline + buffer tabline)
 ```
 
 Undo history lives in `~/.local/state/nvim/undo`.
+
+# Clipboard
+
+- WSL: `win32yank.exe` on PATH -> `clipboard=unnamedplus` (y/p use the Windows clipboard).
+- Over SSH: `"+y` copies to the local clipboard via OSC 52. Local tmux needs
+  `set -g set-clipboard on`. Paste from the local clipboard with Ctrl+Shift+V.

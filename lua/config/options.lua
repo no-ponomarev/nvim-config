@@ -46,7 +46,21 @@ opt.updatetime = 250
 opt.list = true
 opt.listchars = { tab = "→ ", trail = "·", nbsp = "␣", extends = "›", precedes = "‹" }
 
--- System clipboard (WSL: win32yank.exe on PATH; elsewhere stay with vim registers)
+-- System clipboard
 if vim.fn.executable("win32yank.exe") == 1 then
+    -- WSL: y/p go straight to the Windows clipboard
     opt.clipboard = "unnamedplus"
+elseif vim.env.SSH_TTY then
+    -- Remote over SSH: "+y copies to the local clipboard via OSC 52 (through local
+    -- tmux, which needs `set-clipboard on`). Terminals refuse OSC 52 reads, so "+p
+    -- just returns nvim's last yank; paste from the local clipboard with Ctrl+Shift+V.
+    local osc52 = require("vim.ui.clipboard.osc52")
+    local function paste()
+        return { vim.fn.split(vim.fn.getreg('"'), "\n"), vim.fn.getregtype('"') }
+    end
+    vim.g.clipboard = {
+        name = "OSC 52 (copy only)",
+        copy = { ["+"] = osc52.copy("+"), ["*"] = osc52.copy("*") },
+        paste = { ["+"] = paste, ["*"] = paste },
+    }
 end
